@@ -1,2 +1,3 @@
 # chrome-post-latin-FIGS
-Input method of accents for French, Italian, German and Spanish based on POST-LATIN key strokes
+Chromebook Input method of French, Italian, German and Spanish.
+It is based on POST-LATIN key strokes, such as <e'> for <é>, <u"> for <ü>
