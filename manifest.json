@@ -1,0 +1,21 @@
+{
+  "name": "Latin Post for ChromeOS",
+  "version": "1.2.2",
+  "manifest_version": 2,
+  "description": "Latin Post IME",
+  "background":  {
+    "scripts": ["chrome-latin-post.js"]
+  },
+  "permissions": [
+  ],
+  "input_components": [
+    {
+      "name": "Post Latin IME",
+      "type": "ime",
+      "id": "latinpost",
+      "description": "Latin Post IME",
+      "language": "la",
+      "layouts": ["jp::jpn"]
+    }
+  ]
+}
