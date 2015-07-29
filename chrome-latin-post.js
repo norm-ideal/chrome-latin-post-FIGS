@@ -529,6 +529,17 @@ Repeating the postfix changes ambiguous combining marks:
 
 */
 
+function fixUnfixed()
+{
+  if(isFixed)
+    return;
+
+  chrome.input.ime.clearComposition({"contextID": context_id});
+  chrome.input.ime.commitText({"contextID": context_id, "text": convertedSeq});
+  isFixed = true;
+  inputSeq = "";
+  convertedSeq = "";
+}
 
 chrome.input.ime.onFocus.addListener(function(context) {
   context_id = context.contextID;
@@ -549,11 +560,7 @@ chrome.input.ime.onKeyEvent.addListener(
       // fix the pending text
       else
       {
-        chrome.input.ime.clearComposition({"contextID": context_id});
-        chrome.input.ime.commitText({"contextID": context_id, "text": convertedSeq});
-        isFixed = true;
-        inputSeq = "";
-        convertedSeq = "";
+        fixUnfixed();
         return true;
       }
     }
@@ -563,11 +570,7 @@ chrome.input.ime.onKeyEvent.addListener(
       // fix the pending text
       if(isFixed !== true)
       {
-        chrome.input.ime.clearComposition({"contextID": context_id});
-        chrome.input.ime.commitText({"contextID": context_id, "text": convertedSeq});
-        isFixed = true;
-        inputSeq = "";
-        convertedSeq = "";
+        fixUnfixed();
       }
       // ... and pass to handle the key
       return false;
@@ -576,18 +579,10 @@ chrome.input.ime.onKeyEvent.addListener(
     if (keyData.key == "Shift")
       return false;
 
-//    chrome.input.ime.commitText({"contextID": context_id, "text": "in:"+keyData.key + " "});
-//    chrome.input.ime.commitText({"contextID": context_id, "text": "cv:"+convertedSeq + " "});
-//    chrome.input.ime.commitText({"contextID": context_id, "text": "rq:"+inputSeq + " "});
-    
-    if (keyData.key.length != 1)
+    if (keyData.key.length != 1 || keyData.key == " ")
     {
-        chrome.input.ime.clearComposition({"contextID": context_id});
-        chrome.input.ime.commitText({"contextID": context_id, "text": convertedSeq});
-        isFixed = true;
-        inputSeq = "";
-        convertedSeq = "";
-        return false;
+      fixUnfixed();
+      return false;
     }
     
     if (keyData.key.match(/^[A-Za-z'\`\^"\~\-,:\.\/<>_?!]$/))
