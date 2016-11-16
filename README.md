@@ -10,3 +10,8 @@ You can type in these letters quite easily. Inside of [ ] is the actual key stro
 * Tschüß! <- [Tschu"s/]
 * ¡Hola! <- [!/Hola!]
 
+# settings
+
+I have no idea on where to place the input method. It appears in "Latin".
+
+![Settings](images/install.png)
